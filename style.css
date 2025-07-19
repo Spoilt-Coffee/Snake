@@ -1,13 +1,20 @@
+body {
+    background-color: #2f3d4d;
+}
 #gameContainer{
     text-align: center;
+    margin-top: 150px;
 }
+
 #gameBoard{
     border: 3px solid;
 }
+
 #scoreText{
     font-family: "system-ui", cursive;
     font-size: 100px;
 }
+
 #result{
     font-family: "system-ui", cursive;
     font-size: 22px;
@@ -16,4 +23,18 @@
     border: 4px solid;
     border-radius: 15px;
     cursor: pointer;
+}
+
+#resetBtn {
+    background-color: #ff8a8a;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#resetBtn:hover {
+    background-color: #c76d6d;
 }
