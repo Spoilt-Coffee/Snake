@@ -25,6 +25,11 @@ let snake = [
 
 window.addEventListener("keydown", changeDirection);
 resetBtn.addEventListener("click", resetGame);
+window.addEventListener("keydown", (event) => {
+    if (event.key === " ") {
+        resetGame();
+    }
+});
 
 gameStart();
 createFood();
@@ -101,10 +106,13 @@ function drawSnake(){
 
 function changeDirection(event){
     const keyPressed = event.keyCode;
-    const LEFT = 37;
-    const UP = 38;
-    const RIGHT = 39;
-    const DOWN = 40;
+    console.log(keyPressed);
+
+    //WASD
+    const UP = 87;
+    const LEFT = 65;
+    const DOWN = 83;
+    const RIGHT = 68;
 
     const goingUp = (yVelocity === -unitSize);
     const goingDown = (yVelocity === unitSize);
