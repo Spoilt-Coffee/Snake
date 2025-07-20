@@ -18,6 +18,7 @@ body {
 
 #gameBoard{
     border: 3px solid;
+    border-radius: 10px;
 }
 
 #scoreText{
@@ -59,4 +60,18 @@ body {
     padding: 5px 10px;
     border-radius: 5px;
     z-index: 100;
+}
+
+#leaderboard {
+    position: absolute;
+    right: 100px;
+    top: 166px;
+    width: 300px;
+    height: 400px;
+    background-color: #ff7e5a;
+    border: 2px solid #000;
+    border-radius: 10px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 20px;
+    text-align: center;
 }
