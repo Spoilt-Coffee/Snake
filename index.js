@@ -25,7 +25,7 @@ let snake = [
 ];
 const times = [];
 let fps;
-const fpsValueElement = document.getElementById("fpsValue");
+let fpsValueElement = document.getElementById("fpsValue");
 
 window.addEventListener("keydown", changeDirection);
 resetBtn.addEventListener("click", resetGame);
@@ -110,7 +110,6 @@ function drawSnake(){
 
 function changeDirection(event){
     const keyPressed = event.keyCode;
-    console.log(keyPressed);
 
     //WASD
     const UP = 87;
@@ -177,7 +176,6 @@ function resetGame(){
     score = 0;
     xVelocity = unitSize;
     yVelocity = 0;
-
     snake = [
         {x:unitSize * 4, y:0},
         {x:unitSize * 3, y:0},
