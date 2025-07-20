@@ -7,7 +7,8 @@ const gameHeight = gameBoard.height;
 const boardBackground = "lightblue";
 const snakeColor = "lightgreen";
 const snakeBorder = "black";
-const foodColor = "red";
+const foodColor = "#d54040";
+const foodBorder = "black";
 const unitSize = 25;
 let running = false;
 let xVelocity = unitSize;
@@ -22,6 +23,9 @@ let snake = [
     {x:unitSize, y:0},
     {x:0, y:0}
 ];
+const times = [];
+let fps;
+const fpsValueElement = document.getElementById("fpsValue");
 
 window.addEventListener("keydown", changeDirection);
 resetBtn.addEventListener("click", resetGame);
@@ -32,14 +36,12 @@ window.addEventListener("keydown", (event) => {
 });
 
 gameStart();
-createFood();
-drawFood();
 
 function gameStart(){
     running = true;
     scoreText.textContent = score;
     createFood();
-    drawFood();
+    fpsCounter();
     nextTick();
 }
 
@@ -48,8 +50,8 @@ function nextTick(){
         setTimeout(()=>{
             clearBoard();
             drawFood();
+            drawSnake()
             moveSnake();
-            drawSnake();
             checkGameOver();
             nextTick();
         }, 75)
@@ -74,7 +76,9 @@ function createFood(){
 
 function drawFood(){
     ctx.fillStyle = foodColor;
+    ctx.strokeStyle = foodBorder;
     ctx.fillRect(foodX, foodY, unitSize, unitSize);
+    ctx.strokeRect(foodX, foodY, unitSize, unitSize);
 }
 
 function moveSnake(){
@@ -162,12 +166,13 @@ function checkGameOver(){
 }
 
 function displayGameOver(){
-    ctx.font = "50px system-ui";
+    ctx.font = "bold 50px 'JetBrains Mono', monospace";
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
     ctx.fillText("GAME OVER!", gameWidth/2, gameHeight/2);
     running = false;
 }
+
 function resetGame(){
     score = 0;
     xVelocity = unitSize;
@@ -183,3 +188,15 @@ function resetGame(){
     gameStart();
 }
 
+function fpsCounter() {
+    window.requestAnimationFrame(() => {
+        const now = performance.now();
+        while (times.length > 0 && times[0] <= now - 1000) {
+            times.shift();
+        }
+        times.push(now);
+        fps = times.length;
+        fpsValueElement.textContent = fps;
+        fpsCounter();
+    });
+}
