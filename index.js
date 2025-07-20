@@ -25,7 +25,9 @@ let snake = [
 ];
 const times = [];
 let fps;
+let fpsFrameId;
 let fpsValueElement = document.getElementById("fpsValue");
+let gameLoopTimeoutId;
 
 window.addEventListener("keydown", changeDirection);
 resetBtn.addEventListener("click", resetGame);
@@ -47,14 +49,14 @@ function gameStart(){
 
 function nextTick(){
     if (running){
-        setTimeout(()=>{
+        gameLoopTimeoutId = setTimeout(()=>{
             clearBoard();
             drawFood();
-            drawSnake()
+            drawSnake();
             moveSnake();
             checkGameOver();
             nextTick();
-        }, 75)
+        }, 75);
     }
     else{
         displayGameOver();
@@ -173,6 +175,9 @@ function displayGameOver(){
 }
 
 function resetGame(){
+    clearTimeout(gameLoopTimeoutId);
+    cancelAnimationFrame(fpsFrameId);
+    times.length = 0;
     score = 0;
     xVelocity = unitSize;
     yVelocity = 0;
@@ -187,7 +192,7 @@ function resetGame(){
 }
 
 function fpsCounter() {
-    window.requestAnimationFrame(() => {
+    fpsFrameId = window.requestAnimationFrame(() => {
         const now = performance.now();
         while (times.length > 0 && times[0] <= now - 1000) {
             times.shift();
